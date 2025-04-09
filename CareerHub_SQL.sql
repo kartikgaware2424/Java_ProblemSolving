@@ -1,18 +1,14 @@
--- Drop if exists
-drop database if exists CareerHub;
-
--- Create fresh database
 create database CareerHub;
 use CareerHub;
 
--- Companies table
+
 create table companies (
     companyid int primary key,
     companyname varchar(100) not null,
     location varchar(100)
 );
 
--- Applicants table
+
 create table applicants (
     applicantid int primary key auto_increment,
     firstname varchar(50) not null,
@@ -22,7 +18,7 @@ create table applicants (
     resume varchar(255)
 );
 
--- Jobs table (jobid is AUTO_INCREMENT)
+
 create table jobs (
     jobid int not null auto_increment,
     companyid int not null,
@@ -36,7 +32,7 @@ create table jobs (
     primary key (jobid)
 );
 
--- Applications table (will add foreign keys after jobid alteration)
+
 create table applications (
     applicationid int primary key auto_increment,
     jobid int not null,
@@ -45,7 +41,7 @@ create table applications (
     coverletter text
 );
 
--- Add foreign key constraints
+
 alter table jobs
     add foreign key (companyid) references companies(companyid);
 
@@ -53,7 +49,7 @@ alter table applications
     add foreign key (jobid) references jobs(jobid),
     add foreign key (applicantid) references applicants(applicantid);
 
--- Insert companies
+
 insert into companies values 
 (1, 'AlphaTech', 'Mumbai'),
 (2, 'BetaSoft', 'Pune'),
@@ -69,7 +65,7 @@ insert into applicants (firstname, lastname, email, phone, resume) values
 ('Ananya', 'Singh', 'ananya.singh@mail.com', '9876543203', 'resume4.pdf'),
 ('Kabir', 'Mishra', 'kabir.mishra@mail.com', '9876543204', 'resume5.pdf');
 
--- Insert jobs (omit jobid so AUTO_INCREMENT assigns them)
+
 insert into jobs (companyid, jobtitle, jobdescription, joblocation, salary, jobtype, posteddate, applicationdeadline) values 
 (1, 'Software Engineer', 'Develop scalable applications.', 'Mumbai', 85000.00, 'Full-time', '2025-04-09', '2025-04-20'),
 (2, 'Data Scientist', 'Analyze data patterns.', 'Pune', 95000.00, 'Full-time', '2025-04-08', '2025-04-22'),
@@ -77,7 +73,7 @@ insert into jobs (companyid, jobtitle, jobdescription, joblocation, salary, jobt
 (4, 'UX Designer', 'Design intuitive interfaces.', 'Bangalore', 78000.00, 'Contract', '2025-04-06', '2025-04-20'),
 (5, 'DevOps Engineer', 'CI/CD pipelines.', 'Hyderabad', 89000.00, 'Full-time', '2025-04-04', '2025-04-18');
 
--- Insert applications (auto-increment applicationid, use correct applicant/job reference)
+
 insert into applications (jobid, applicantid, applicationdate, coverletter) values 
 (1, 2, '2025-04-08', 'Cover letter content by Diya Patel'),
 (2, 4, '2025-04-08', 'Cover letter content by Ananya Singh'),
